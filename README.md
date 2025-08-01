@@ -84,4 +84,45 @@ Optional DB	Redis or PostgreSQL
 
     ✅ Build a lightweight alternative to Kubernetes or Docker Swarm
 
-Would you like a full README.md or directory layout for this project?
+
+## Development
+
+Run the test suite in a container using Docker Compose:
+
+```bash
+docker compose run --rm tests
+```
+
+## Usage
+
+### Running the Controller (master)
+
+Launch the API service locally with uvicorn:
+
+```bash
+uvicorn controller.api:app --reload
+```
+
+The controller uses `MQTT_HOST` and `MQTT_PORT` to locate the broker.
+
+### Running a Node Agent (client)
+
+```bash
+python -m node_agent.agent NODE_ID
+```
+
+Use the same `MQTT_HOST` and `MQTT_PORT` variables so the agent can connect to the broker used by the controller.
+
+### Docker Compose
+
+All components can be started together in containers:
+
+```bash
+docker compose up --build
+```
+
+The controller will be reachable at `http://localhost:8000` and the broker at `localhost:1883`.
+
+### Continuous Integration
+
+A GitHub Actions workflow in `.github/workflows/ci.yml` installs dependencies and runs `pytest` automatically on pushes and pull requests.
