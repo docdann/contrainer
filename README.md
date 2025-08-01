@@ -84,4 +84,45 @@ Optional DB	Redis or PostgreSQL
 
     ✅ Build a lightweight alternative to Kubernetes or Docker Swarm
 
-Would you like a full README.md or directory layout for this project?
+
+## Development
+
+Install dependencies and run tests:
+
+```bash
+pip install -r requirements.txt
+pytest
+```
+
+Run the controller API with uvicorn:
+
+```bash
+uvicorn controller.api:app --reload
+```
+The controller reads `MQTT_HOST` and `MQTT_PORT` environment variables to
+connect to the broker.
+
+Start a node agent:
+
+```bash
+python -m node_agent.agent NODE_ID
+```
+Environment variables `MQTT_HOST` and `MQTT_PORT` can be used to point the
+agent at a different broker.
+
+### Docker Compose
+
+You can also run the controller, node agent and MQTT broker using Docker
+Compose:
+
+```bash
+docker compose up --build
+```
+
+The API will be available at `http://localhost:8000` and the broker on
+`localhost:1883`.
+
+
+### Continuous Integration
+
+A GitHub Actions workflow in `.github/workflows/ci.yml` installs dependencies and runs `pytest` automatically on pushes and pull requests.
