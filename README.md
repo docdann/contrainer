@@ -87,11 +87,10 @@ Optional DB	Redis or PostgreSQL
 
 ## Development
 
-Install dependencies and run tests:
+Run the test suite in a container using Docker Compose:
 
 ```bash
-pip install -r requirements.txt
-pytest
+docker compose run --rm tests
 ```
 
 ## Usage

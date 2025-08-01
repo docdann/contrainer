@@ -23,3 +23,8 @@ services:
     environment:
       - NODE_ID=node1
       - MQTT_HOST=mqtt
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    command: pytest -q
