@@ -94,34 +94,35 @@ pip install -r requirements.txt
 pytest
 ```
 
-Run the controller API with uvicorn:
+## Usage
+
+### Running the Controller (master)
+
+Launch the API service locally with uvicorn:
 
 ```bash
 uvicorn controller.api:app --reload
 ```
-The controller reads `MQTT_HOST` and `MQTT_PORT` environment variables to
-connect to the broker.
 
-Start a node agent:
+The controller uses `MQTT_HOST` and `MQTT_PORT` to locate the broker.
+
+### Running a Node Agent (client)
 
 ```bash
 python -m node_agent.agent NODE_ID
 ```
-Environment variables `MQTT_HOST` and `MQTT_PORT` can be used to point the
-agent at a different broker.
+
+Use the same `MQTT_HOST` and `MQTT_PORT` variables so the agent can connect to the broker used by the controller.
 
 ### Docker Compose
 
-You can also run the controller, node agent and MQTT broker using Docker
-Compose:
+All components can be started together in containers:
 
 ```bash
 docker compose up --build
 ```
 
-The API will be available at `http://localhost:8000` and the broker on
-`localhost:1883`.
-
+The controller will be reachable at `http://localhost:8000` and the broker at `localhost:1883`.
 
 ### Continuous Integration
 
